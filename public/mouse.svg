@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg style="height:100%;transform:translate3d(0px, 0px, 0px);width:100%" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<clipPath id="a">
+<rect width="72" height="72"/>
+</clipPath>
+</defs>
+<g clip-path="url(#a)">
+<g transform="translate(36 36)" display="block">
+<path d="m18.324 4.428-0.036999 9.785c0 10.1-8.187 18.287-18.287 18.287s-18.287-8.187-18.287-18.287v-28.426c0-10.1 8.187-18.287 18.287-18.287s18.287 8.187 18.287 18.287v21.589" fill-opacity="0" stroke="#cfcfcf" stroke-width="2"/>
+</g>
+<g transform="translate(36 36)" display="none">
+<path d="m0 0" fill-opacity="0" stroke="#cfcfcf" stroke-width="2"/>
+</g>
+<g transform="translate(36 36)" display="block">
+<path d="m0 0" fill-opacity="0" stroke="#9b37ff" stroke-width="2"/>
+</g>
+<g transform="translate(36 36)" display="none">
+<path d="m0 0" fill-opacity="0" stroke="#9b37ff" stroke-width="2"/>
+</g>
+<g transform="translate(36 43.337)" display="block">
+<path d="m-0.106 2.98c0.109 1.335 0.171 2.806 0.171 4.432 0 0-0.059 9.214-0.059 9.214" fill-opacity="0" stroke="#9b37ff" stroke-width="2"/>
+</g>
+<g transform="translate(54 51.587)" display="block">
+<path d="m-24.452 3.003s6.409 6.494 6.409 6.494l6.495-6.494" fill-opacity="0" stroke="#9b37ff" stroke-width="2"/>
+</g>
+</g>
+</svg>
