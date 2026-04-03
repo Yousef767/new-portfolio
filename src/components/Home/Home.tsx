@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 export default function Home() {
-  const quotes = [
-    "I turn ideas into interactive experiences, one line of code at a time.",
-    "Code is my brush; the browser, my canvas.",
-    "Pixels with purpose, interfaces with impact.",
-    "Good design is invisible. Great code makes it feel effortless."
-  ];
+  // const quotes = [
+  //   "I turn ideas into interactive experiences, one line of code at a time.",
+  //   "Code is my brush; the browser, my canvas.",
+  //   "Pixels with purpose, interfaces with impact.",
+  //   "Good design is invisible. Great code makes it feel effortless."
+  // ];
 
-  const [rotation, setRotation] = useState(0);
+  // const [rotation, setRotation] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRotation((prev) => prev + 1); // 🔥 no modulo
-    }, 7000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setRotation((prev) => prev + 1); // 🔥 no modulo
+  //   }, 7000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
 
   return (
