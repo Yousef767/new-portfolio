@@ -9,6 +9,7 @@ $secondary: #9b37ff;
   box-sizing: border-box;
   color: #fff;
   font-family: "Roboto Mono", monospace;
+  user-select: none;
   //font-family: "Poppins", sans-serif;
 }
 @mixin flex {
@@ -378,10 +379,11 @@ nav.active .menu {
   }
 
   p {
-    font-size: 2rem;
+    font-size: 1.7rem;
     color: $primary;
     font-weight: 900;
     padding-bottom: 30px;
+    text-transform: uppercase;
     opacity: 0;
     transform: translateY(20px);
     animation: fadeUp 0.8s ease forwards;
@@ -545,7 +547,7 @@ nav.active .menu {
 @media (max-width: 500px) {
   .homeText {
     p {
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
   }
   .textReveal > div > div h1 {
@@ -563,6 +565,9 @@ nav.active .menu {
   display: flex;
   gap: 20px;
   padding-top: 20px;
+  animation: popUp 1s ease 1.6s forwards;
+  opacity: 0;
+    transform: translateY(50px);
   .button{
     &:nth-child(2){
       background-color: $secondary;
@@ -572,6 +577,16 @@ nav.active .menu {
 
       }
     }
+  }
+}
+@keyframes popUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 .button {

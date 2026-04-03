@@ -1,0 +1,186 @@
+import React, { useEffect, useRef } from "react";
+
+type Burst = {
+  x: number;
+  y: number;
+  radius: number;
+  alpha: number;
+};
+
+type Particle = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+};
+
+const DevCursor: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  const mouse = useRef({ x: 0, y: 0 });
+  const pos = useRef({ x: 0, y: 0 });
+  const angle = useRef(0);
+
+  const bursts = useRef<Burst[]>([]);
+  const particles = useRef<Particle[]>([]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dpr = window.devicePixelRatio || 1;
+
+    const resize = () => {
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = "100vw";
+      canvas.style.height = "100vh";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouse.current.x = e.clientX;
+      mouse.current.y = e.clientY;
+    };
+
+    const handleClick = (e: MouseEvent) => {
+      // Ring burst
+      bursts.current.push({
+        x: e.clientX,
+        y: e.clientY,
+        radius: 0,
+        alpha: 1,
+      });
+
+      // Particle explosion
+      for (let i = 0; i < 12; i++) {
+        particles.current.push({
+          x: e.clientX,
+          y: e.clientY,
+          vx: (Math.random() - 0.5) * 4,
+          vy: (Math.random() - 0.5) * 4,
+          life: 1,
+        });
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("click", handleClick);
+
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Smooth follow
+      pos.current.x += (mouse.current.x - pos.current.x) * 0.15;
+      pos.current.y += (mouse.current.y - pos.current.y) * 0.15;
+
+      const x = pos.current.x;
+      const y = pos.current.y;
+
+      angle.current += 0.03;
+
+      // === Core ===
+      ctx.beginPath();
+      ctx.arc(x, y, 6, 0, Math.PI * 2);
+      ctx.fillStyle = "#00ffff";
+      ctx.shadowColor = "#00ffff";
+      ctx.shadowBlur = 20;
+      ctx.fill();
+
+      // === Pulsing ring ===
+      const pulse = 10 + Math.sin(Date.now() * 0.005) * 2;
+      ctx.beginPath();
+      ctx.arc(x, y, pulse, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(0,255,255,0.4)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // === Rotating dashed ring ===
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle.current);
+      ctx.setLineDash([4, 6]);
+
+      ctx.beginPath();
+      ctx.arc(0, 0, 18, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(0,255,255,0.6)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.restore();
+
+      // === Orbit particles ===
+      for (let i = 0; i < 3; i++) {
+        const orbitAngle = angle.current + (i * Math.PI * 2) / 3;
+        const radius = 18;
+
+        const ox = x + Math.cos(orbitAngle) * radius;
+        const oy = y + Math.sin(orbitAngle) * radius;
+
+        ctx.beginPath();
+        ctx.arc(ox, oy, 2, 0, Math.PI * 2);
+        ctx.fillStyle = "#00ffff";
+        ctx.fill();
+      }
+
+      // === Click burst rings ===
+      bursts.current.forEach((b, i) => {
+        b.radius += 2.5;
+        b.alpha -= 0.03;
+
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(0,255,255,${b.alpha})`;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        if (b.alpha <= 0) bursts.current.splice(i, 1);
+      });
+
+      // === Click particles ===
+      particles.current.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 0.03;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0,255,255,${p.life})`;
+        ctx.fill();
+
+        if (p.life <= 0) particles.current.splice(i, 1);
+      });
+
+      requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("click", handleClick);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "fixed",
+        inset: 0,
+        pointerEvents: "none",
+        zIndex: 9999,
+      }}
+    />
+  );
+};
+
+export default DevCursor;

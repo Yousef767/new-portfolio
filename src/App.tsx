@@ -3,10 +3,13 @@ import "./SCSS/style.scss";
 import "./fa/all.min.css";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar";
+import DevCursor from "./components/DevCursor";
+
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <DevCursor />
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>

@@ -57,10 +57,10 @@ export default function Home() {
           </div>
         </div>
         <div className="btns">
-          <a href="/cv.pdf" download={true} className="button">
+          <a href="/Yousef Ahmed CV.pdf" download={true} className="button">
           Download CV <i className="fa-solid fa-cloud-arrow-down"></i>
         </a>
-        <a href="/cv.pdf" download={true} className="button">
+        <a href="#projects" className="button">
           Show Projects <i className="fa-solid fa-diagram-project"></i>
         </a>
         </div>
