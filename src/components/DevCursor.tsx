@@ -25,7 +25,7 @@ const DevCursor: React.FC = () => {
   const bursts = useRef<Burst[]>([]);
   const particles = useRef<Particle[]>([]);
 
-  const lastMove = useRef(Date.now());
+  const lastMove = useRef(0);
   const opacity = useRef(1);
 
   useEffect(() => {
@@ -36,6 +36,8 @@ const DevCursor: React.FC = () => {
     if (!ctx) return;
 
     const dpr = window.devicePixelRatio || 1;
+
+    lastMove.current = Date.now();
 
     const resize = () => {
       canvas.width = window.innerWidth * dpr;
