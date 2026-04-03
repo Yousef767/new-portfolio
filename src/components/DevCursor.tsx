@@ -25,7 +25,7 @@ const DevCursor: React.FC = () => {
   const bursts = useRef<Burst[]>([]);
   const particles = useRef<Particle[]>([]);
 
-  const lastMove = useRef(0);
+  const lastMove = useRef(Date.now());
   const opacity = useRef(1);
 
   useEffect(() => {
@@ -36,8 +36,6 @@ const DevCursor: React.FC = () => {
     if (!ctx) return;
 
     const dpr = window.devicePixelRatio || 1;
-
-    lastMove.current = Date.now();
 
     const resize = () => {
       canvas.width = window.innerWidth * dpr;
@@ -72,7 +70,7 @@ const DevCursor: React.FC = () => {
           y: e.clientY,
           vx: (Math.random() - 0.5) * 4,
           vy: (Math.random() - 0.5) * 4,
-          life: 1,
+          life: 8,
         });
       }
     };
@@ -88,8 +86,6 @@ const DevCursor: React.FC = () => {
       const targetOpacity = isIdle ? 0.3 : 1;
       opacity.current += (targetOpacity - opacity.current) * 0.1;
 
-      ctx.globalAlpha = opacity.current;
-
       // === Smooth follow ===
       pos.current.x += (mouse.current.x - pos.current.x) * 0.15;
       pos.current.y += (mouse.current.y - pos.current.y) * 0.15;
@@ -99,7 +95,11 @@ const DevCursor: React.FC = () => {
 
       angle.current += 0.03;
 
-      // === Core ===
+      // === CURSOR DRAW (affected by opacity) ===
+      ctx.save();
+      ctx.globalAlpha = opacity.current;
+
+      // Core
       ctx.beginPath();
       ctx.arc(x, y, 6, 0, Math.PI * 2);
       ctx.fillStyle = "#00ffff";
@@ -107,7 +107,7 @@ const DevCursor: React.FC = () => {
       ctx.shadowBlur = 20 * opacity.current;
       ctx.fill();
 
-      // === Pulsing ring ===
+      // Pulsing ring
       const pulse = 10 + Math.sin(Date.now() * 0.005) * 2;
       ctx.beginPath();
       ctx.arc(x, y, pulse, 0, Math.PI * 2);
@@ -115,25 +115,22 @@ const DevCursor: React.FC = () => {
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // === Rotating dashed ring ===
+      // Rotating dashed ring
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(angle.current);
       ctx.setLineDash([4, 6]);
-
       ctx.beginPath();
       ctx.arc(0, 0, 18, 0, Math.PI * 2);
       ctx.strokeStyle = "rgba(0,255,255,0.6)";
       ctx.lineWidth = 1.5;
       ctx.stroke();
-
       ctx.restore();
 
-      // === Orbit particles ===
+      // Orbit particles
       for (let i = 0; i < 3; i++) {
         const orbitAngle = angle.current + (i * Math.PI * 2) / 3;
         const radius = 18;
-
         const ox = x + Math.cos(orbitAngle) * radius;
         const oy = y + Math.sin(orbitAngle) * radius;
 
@@ -143,7 +140,9 @@ const DevCursor: React.FC = () => {
         ctx.fill();
       }
 
-      // === Click burst rings ===
+      ctx.restore(); // done with cursor opacity
+
+      // === CLICK BURSTS (full opacity, not affected) ===
       bursts.current.forEach((b, i) => {
         b.radius += 2.5;
         b.alpha -= 0.03;
@@ -157,7 +156,7 @@ const DevCursor: React.FC = () => {
         if (b.alpha <= 0) bursts.current.splice(i, 1);
       });
 
-      // === Click particles ===
+      // Click particles
       particles.current.forEach((p, i) => {
         p.x += p.vx;
         p.y += p.vy;
@@ -170,8 +169,6 @@ const DevCursor: React.FC = () => {
 
         if (p.life <= 0) particles.current.splice(i, 1);
       });
-
-      ctx.globalAlpha = 1;
 
       requestAnimationFrame(render);
     };
