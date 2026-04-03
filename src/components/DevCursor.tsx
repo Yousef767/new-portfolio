@@ -35,7 +35,11 @@ const DevCursor: React.FC = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const dpr = window.devicePixelRatio || 1;
+    // ✅ Detect mobile once
+    const isMobile = window.innerWidth < 768;
+
+    // ✅ Limit DPR on mobile (HUGE performance boost)
+    const dpr = isMobile ? 1 : window.devicePixelRatio || 1;
 
     lastMove.current = Date.now();
 
@@ -65,14 +69,16 @@ const DevCursor: React.FC = () => {
         alpha: 1,
       });
 
-      // Particle explosion
-      for (let i = 0; i < 12; i++) {
+      // ✅ Fewer particles on mobile
+      const count = isMobile ? 6 : 12;
+
+      for (let i = 0; i < count; i++) {
         particles.current.push({
           x: e.clientX,
           y: e.clientY,
           vx: (Math.random() - 0.5) * 4,
           vy: (Math.random() - 0.5) * 4,
-          life: 8,
+          life: isMobile ? 2 : 4, // shorter life on mobile
         });
       }
     };
@@ -97,7 +103,7 @@ const DevCursor: React.FC = () => {
 
       angle.current += 0.03;
 
-      // === CURSOR DRAW (affected by opacity) ===
+      // === CURSOR DRAW ===
       ctx.save();
       ctx.globalAlpha = opacity.current;
 
@@ -105,8 +111,11 @@ const DevCursor: React.FC = () => {
       ctx.beginPath();
       ctx.arc(x, y, 6, 0, Math.PI * 2);
       ctx.fillStyle = "#00ffff";
+
+      // ✅ Disable expensive shadow on mobile
       ctx.shadowColor = "#00ffff";
-      ctx.shadowBlur = 20 * opacity.current;
+      ctx.shadowBlur = isMobile ? 0 : 20 * opacity.current;
+
       ctx.fill();
 
       // Pulsing ring
@@ -129,22 +138,24 @@ const DevCursor: React.FC = () => {
       ctx.stroke();
       ctx.restore();
 
-      // Orbit particles
-      for (let i = 0; i < 3; i++) {
-        const orbitAngle = angle.current + (i * Math.PI * 2) / 3;
-        const radius = 18;
-        const ox = x + Math.cos(orbitAngle) * radius;
-        const oy = y + Math.sin(orbitAngle) * radius;
+      // ✅ Disable orbit particles on mobile (optional but helps a lot)
+      if (!isMobile) {
+        for (let i = 0; i < 3; i++) {
+          const orbitAngle = angle.current + (i * Math.PI * 2) / 3;
+          const radius = 18;
+          const ox = x + Math.cos(orbitAngle) * radius;
+          const oy = y + Math.sin(orbitAngle) * radius;
 
-        ctx.beginPath();
-        ctx.arc(ox, oy, 2, 0, Math.PI * 2);
-        ctx.fillStyle = "#00ffff";
-        ctx.fill();
+          ctx.beginPath();
+          ctx.arc(ox, oy, 2, 0, Math.PI * 2);
+          ctx.fillStyle = "#00ffff";
+          ctx.fill();
+        }
       }
 
-      ctx.restore(); // done with cursor opacity
+      ctx.restore();
 
-      // === CLICK BURSTS (full opacity, not affected) ===
+      // === CLICK BURSTS ===
       bursts.current.forEach((b, i) => {
         b.radius += 2.5;
         b.alpha -= 0.03;
@@ -158,11 +169,13 @@ const DevCursor: React.FC = () => {
         if (b.alpha <= 0) bursts.current.splice(i, 1);
       });
 
-      // Click particles
+      // === PARTICLES ===
       particles.current.forEach((p, i) => {
         p.x += p.vx;
         p.y += p.vy;
-        p.life -= 0.03;
+
+        // ✅ Faster cleanup on mobile
+        p.life -= isMobile ? 0.05 : 0.03;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
