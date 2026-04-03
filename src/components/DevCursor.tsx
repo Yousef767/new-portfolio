@@ -25,6 +25,9 @@ const DevCursor: React.FC = () => {
   const bursts = useRef<Burst[]>([]);
   const particles = useRef<Particle[]>([]);
 
+  const lastMove = useRef(Date.now());
+  const opacity = useRef(1);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -48,6 +51,7 @@ const DevCursor: React.FC = () => {
     const handleMouseMove = (e: MouseEvent) => {
       mouse.current.x = e.clientX;
       mouse.current.y = e.clientY;
+      lastMove.current = Date.now();
     };
 
     const handleClick = (e: MouseEvent) => {
@@ -77,7 +81,14 @@ const DevCursor: React.FC = () => {
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Smooth follow
+      // === Idle detection ===
+      const isIdle = Date.now() - lastMove.current > 150;
+      const targetOpacity = isIdle ? 0.3 : 1;
+      opacity.current += (targetOpacity - opacity.current) * 0.1;
+
+      ctx.globalAlpha = opacity.current;
+
+      // === Smooth follow ===
       pos.current.x += (mouse.current.x - pos.current.x) * 0.15;
       pos.current.y += (mouse.current.y - pos.current.y) * 0.15;
 
@@ -91,7 +102,7 @@ const DevCursor: React.FC = () => {
       ctx.arc(x, y, 6, 0, Math.PI * 2);
       ctx.fillStyle = "#00ffff";
       ctx.shadowColor = "#00ffff";
-      ctx.shadowBlur = 20;
+      ctx.shadowBlur = 20 * opacity.current;
       ctx.fill();
 
       // === Pulsing ring ===
@@ -157,6 +168,8 @@ const DevCursor: React.FC = () => {
 
         if (p.life <= 0) particles.current.splice(i, 1);
       });
+
+      ctx.globalAlpha = 1;
 
       requestAnimationFrame(render);
     };
