@@ -35,10 +35,10 @@ const DevCursor: React.FC = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // ✅ Detect mobile once
+    // ✅ Detect mobile
     const isMobile = window.innerWidth < 768;
 
-    // ✅ Limit DPR on mobile (HUGE performance boost)
+    // ✅ DPR optimization
     const dpr = isMobile ? 1 : window.devicePixelRatio || 1;
 
     lastMove.current = Date.now();
@@ -69,7 +69,7 @@ const DevCursor: React.FC = () => {
         alpha: 1,
       });
 
-      // ✅ Fewer particles on mobile
+      // ✅ Adaptive particle count
       const count = isMobile ? 6 : 12;
 
       for (let i = 0; i < count; i++) {
@@ -78,30 +78,36 @@ const DevCursor: React.FC = () => {
           y: e.clientY,
           vx: (Math.random() - 0.5) * 4,
           vy: (Math.random() - 0.5) * 4,
-          life: isMobile ? 2 : 4, // shorter life on mobile
+          life: isMobile ? 2 : 4,
         });
       }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("click", handleClick);
 
-    const render = () => {
+    // ✅ Delta time setup
+    let lastTime = performance.now();
+
+    const render = (now: number) => {
+      const delta = (now - lastTime) / 16.67; // normalize to 60fps
+      lastTime = now;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // === Idle detection ===
       const isIdle = Date.now() - lastMove.current > 150;
       const targetOpacity = isIdle ? 0.3 : 1;
-      opacity.current += (targetOpacity - opacity.current) * 0.1;
+      opacity.current += (targetOpacity - opacity.current) * 0.1 * delta;
 
-      // === Smooth follow ===
-      pos.current.x += (mouse.current.x - pos.current.x) * 0.15;
-      pos.current.y += (mouse.current.y - pos.current.y) * 0.15;
+      // === Smooth follow (delta fixed) ===
+      pos.current.x += (mouse.current.x - pos.current.x) * 0.15 * delta;
+      pos.current.y += (mouse.current.y - pos.current.y) * 0.15 * delta;
 
       const x = pos.current.x;
       const y = pos.current.y;
 
-      angle.current += 0.03;
+      angle.current += 0.03 * delta;
 
       // === CURSOR DRAW ===
       ctx.save();
@@ -111,11 +117,8 @@ const DevCursor: React.FC = () => {
       ctx.beginPath();
       ctx.arc(x, y, 6, 0, Math.PI * 2);
       ctx.fillStyle = "#00ffff";
-
-      // ✅ Disable expensive shadow on mobile
       ctx.shadowColor = "#00ffff";
       ctx.shadowBlur = isMobile ? 0 : 20 * opacity.current;
-
       ctx.fill();
 
       // Pulsing ring
@@ -138,7 +141,7 @@ const DevCursor: React.FC = () => {
       ctx.stroke();
       ctx.restore();
 
-      // ✅ Disable orbit particles on mobile (optional but helps a lot)
+      // ✅ Disable orbit particles on mobile
       if (!isMobile) {
         for (let i = 0; i < 3; i++) {
           const orbitAngle = angle.current + (i * Math.PI * 2) / 3;
@@ -155,10 +158,10 @@ const DevCursor: React.FC = () => {
 
       ctx.restore();
 
-      // === CLICK BURSTS ===
+      // === BURSTS ===
       bursts.current.forEach((b, i) => {
-        b.radius += 2.5;
-        b.alpha -= 0.03;
+        b.radius += 2.5 * delta;
+        b.alpha -= 0.03 * delta;
 
         ctx.beginPath();
         ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
@@ -171,11 +174,9 @@ const DevCursor: React.FC = () => {
 
       // === PARTICLES ===
       particles.current.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // ✅ Faster cleanup on mobile
-        p.life -= isMobile ? 0.05 : 0.03;
+        p.x += p.vx * delta;
+        p.y += p.vy * delta;
+        p.life -= (isMobile ? 0.05 : 0.03) * delta;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
@@ -188,7 +189,7 @@ const DevCursor: React.FC = () => {
       requestAnimationFrame(render);
     };
 
-    render();
+    requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
@@ -205,6 +206,7 @@ const DevCursor: React.FC = () => {
         inset: 0,
         pointerEvents: "none",
         zIndex: 9999,
+        willChange: "transform",
       }}
     />
   );
