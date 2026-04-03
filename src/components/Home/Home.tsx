@@ -42,17 +42,29 @@ export default function Home() {
     <div className="cube-container">
           <div
             className="cube"
-            style={{
-              transform: `rotateX(${rotation * -90}deg)`
-            }}
+            // style={{
+            //   transform: `rotateX(${rotation * -90}deg)`
+            // }}
           >
-            {quotes.map((quote, i) => (
+            {/* {quotes.map((quote, i) => (
               <div key={i} className={`face face-${i}`}>
-                "{quote}"
+                "Code is my brush; the browser, my canvas."
               </div>
-            ))}
+            ))} */}
+              <div  className={`face`}>
+                "Code is my brush; the browser, my canvas."
+              </div>
           </div>
         </div>
+        <div className="btns">
+          <a href="/cv.pdf" download={true} className="button">
+          Download CV <i className="fa-solid fa-cloud-arrow-down"></i>
+        </a>
+        <a href="/cv.pdf" download={true} className="button">
+          Show Projects <i className="fa-solid fa-diagram-project"></i>
+        </a>
+        </div>
+
 
       </div>
       <div className="mouse-icon">
