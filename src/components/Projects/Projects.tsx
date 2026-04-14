@@ -14,7 +14,7 @@ export default function Projects() {
   );
 
   const scrollToProjects = () => {
-    const section = document.getElementById("projectsInner");
+    const section = document.getElementById("projects");
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     }
@@ -30,7 +30,7 @@ export default function Projects() {
         troubleshooting, and PC maintenance.
       </p>
 
-      <div className="projectsList" id="projectsInner">
+      <div className="projectsList">
         {currentProjects.map((project, index) => (
           <a
             href={project.link}
