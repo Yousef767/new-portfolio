@@ -44,7 +44,7 @@ export default function Navbar() {
             </a>
           </li>
           <li>
-            <a href="#work">
+            <a href="#projects">
               <span>03</span>// Projects{" "}
             </a>
           </li>
