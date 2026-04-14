@@ -1124,6 +1124,9 @@ nav.active .menu {
   position: relative;
   width: 100%;
   padding: 20px 40px;
+  @media (max-width:500px) {
+    padding: 20px;
+  }
   font-size: 1.2rem;
   background-color: #241d41;
   overflow: hidden;
