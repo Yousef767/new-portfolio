@@ -22,7 +22,7 @@ export default function UpButton() {
   if (!show) return null;
 
   return (
-    <button className="go-up" onClick={handleUp}>
+    <button className="go-up" onClick={handleUp} tabIndex={0}>
       <i className="fa-solid fa-chevron-up"></i>
     </button>
   );
