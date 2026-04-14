@@ -38,7 +38,7 @@ export default function Projects() {
             key={index}
             target="_blank"
           >
-            <img src={project.img} alt={project.title} />
+            <img src={project.img} alt={project.title} loading="lazy"/>
             <div className="itemDetails projectItemDetails">
               <h2>{project.title}</h2>
               <p>{project.description}</p>
