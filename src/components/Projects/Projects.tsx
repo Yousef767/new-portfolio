@@ -10,8 +10,15 @@ export default function Projects() {
   const startIndex = (currentPage - 1) * projectsPerPage;
   const currentProjects = projectsData.slice(
     startIndex,
-    startIndex + projectsPerPage
+    startIndex + projectsPerPage,
   );
+
+  const scrollToProjects = () => {
+    const section = document.getElementById("projects");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section className="box2 expertise projects" id="projects">
@@ -44,24 +51,33 @@ export default function Projects() {
       {/* Pagination */}
       <div className="pagination">
         <button
-          onClick={() => setCurrentPage((prev) => prev - 1)}
+          onClick={() => {
+            setCurrentPage((prev) => prev - 1);
+            scrollToProjects();
+          }}
           disabled={currentPage === 1}
         >
-              <i className="fas fa-chevron-left"></i>
+          <i className="fas fa-chevron-left"></i>
         </button>
 
         {[...Array(totalPages)].map((_, i) => (
           <button
             key={i}
             className={currentPage === i + 1 ? "active" : ""}
-            onClick={() => setCurrentPage(i + 1)}
+            onClick={() => {
+              setCurrentPage(i + 1);
+              scrollToProjects();
+            }}
           >
             {i + 1}
           </button>
         ))}
 
         <button
-          onClick={() => setCurrentPage((prev) => prev + 1)}
+          onClick={() => {
+            setCurrentPage((prev) => prev + 1);
+            scrollToProjects();
+          }}
           disabled={currentPage === totalPages}
         >
           <i className="fas fa-chevron-right"></i>
