@@ -48,7 +48,6 @@ export default function Projects() {
         ))}
       </div>
 
-      {/* Pagination */}
       <div className="pagination">
         <button
           onClick={() => {
