@@ -34,27 +34,27 @@ export default function Navbar() {
             <span>-</span>
           </Link>
           <li>
-            <a href="#home">
+            <a href="#home" onClick={handleClick}>
               <span>01</span>// Home{" "}
             </a>
           </li>
           <li>
-            <a href="#expertise">
+            <a href="#expertise" onClick={handleClick}>
               <span>02</span>// Expertise{" "}
             </a>
           </li>
           <li>
-            <a href="#projects">
+            <a href="#projects" onClick={handleClick}>
               <span>03</span>// Projects{" "}
             </a>
           </li>
           <li>
-            <a href="#experience">
+            <a href="#experience" onClick={handleClick}>
               <span>04</span>// Experience{" "}
             </a>
           </li>
           <li>
-            <a href="#contact">
+            <a href="#contact" onClick={handleClick}>
               <span>05</span>// Contact{" "}
             </a>
           </li>

@@ -1108,3 +1108,130 @@ nav.active .menu {
   height: 50px;
   border-radius: 50%;
 }
+
+.formbody {
+  width: 100%;
+  display: flex;
+  gap: 50px;
+}
+.infoCards {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.infoCard {
+  position: relative;
+  width: 100%;
+  padding: 20px 40px;
+  font-size: 1.2rem;
+  background-color: #241d41;
+  overflow: hidden;
+  border-radius: 10px;
+  i {
+    font-size: 1.5rem;
+  }
+}
+.infoBox {
+  display: flex;
+  position: relative;
+  z-index: 2;
+  gap: 10px;
+}
+.form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  input,
+  textarea {
+    background: none;
+    border: none;
+    outline: none;
+    height: 60px;
+    border-radius: 10px;
+    border: 1px solid $secondary;
+    padding: 0 20px;
+    font-size: 1rem;
+    transition: 0.3s all ease;
+    &:focus {
+      border-color: $primary;
+    }
+  }
+  textarea {
+    height: 140px;
+    padding: 20px;
+  }
+  span {
+    color: #fff;
+    padding-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 1.1rem;
+  }
+}
+.contact{
+  padding-top: 50px;
+  padding-bottom:100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  .p{
+    padding-bottom: 50px;
+    padding-top: 20px;
+    font-size: 1.2rem;
+    max-width: 800px;
+    width: 100%;
+     @media (max-width: 500px) {
+      font-size: 1rem;
+    }
+  }
+}
+.loader {
+    width: 35px;
+    height: 35px;
+    border: 3px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
+
+    .submitBtn{
+      @include flex();
+      width: 100%;
+      background-color: $secondary;
+      border: none;
+      outline: none;
+      color: #fff;
+      height: 60px;
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 1.2rem;
+      font-family: "Poppins", sans-serif;
+    }
+
+    @media (max-width:900px) {
+      .formbody {
+        flex-direction: column;
+      }
+      .infoCards, .form {
+        width: 100%;
+      }
+    }

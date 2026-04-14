@@ -8,7 +8,7 @@ export default function Experience() {
         {experienceData.map((exp, index) => (
           <div className="experienceItem card" key={index}>
             <h2 className="z2">
-              {exp.role} | {exp.company}
+              {exp.company}
             </h2>
 
             <div className="companyDetails z2">

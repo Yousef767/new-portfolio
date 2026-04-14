@@ -7,6 +7,7 @@ import DevCursor from "./components/DevCursor";
 import { GlowEffect } from "./components/Func/GlowEffect";
 import { useEffect } from "react";
 import UpButton from "./components/Func/UpButton";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   useEffect(() => {
@@ -17,6 +18,7 @@ function App() {
       <Navbar />
       <DevCursor />
       <UpButton />
+      <Toaster position="bottom-center" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>

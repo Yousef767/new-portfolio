@@ -12,7 +12,7 @@ export const experienceData = [
   },
   {
     role: "Frontend Developer",
-    company: "Petra IT",
+    company: "Petra MS",
     duration: "07/2023 – 03/2024",
     location: "Jordan",
     link: "https://petra-ms.com",
