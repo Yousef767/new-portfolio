@@ -31,6 +31,7 @@ export default function Experience() {
             whileInView="show"
             viewport={{ once: false, amount: 0.3 }}
             variants={item}
+            tabIndex={0}
           >
             <h2 className="z2">{exp.company}</h2>
 

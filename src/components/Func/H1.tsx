@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { easeInOut, motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 
 type VariantType = "chaos" | "slide" | "blur" | "pop";
 
@@ -13,12 +14,12 @@ export default function H1({
     hidden: {},
     show: {
       transition: {
-        staggerChildren: 0.025,
+        staggerChildren: 0.045,
       },
     },
   };
 
-  const variantsMap = {
+  const variantsMap: Record<VariantType, Variants> = {
     chaos: {
       hidden: () => ({
         opacity: 0,
@@ -35,7 +36,7 @@ export default function H1({
         scale: 1,
         transition: {
           duration: 0.4,
-          ease: [0.42, 0, 0.58, 1],
+          ease: easeInOut,
         },
       },
     },
@@ -50,7 +51,7 @@ export default function H1({
         y: 0,
         transition: {
           duration: 0.5,
-          ease: [0, 0, 0.2, 1],
+          ease: easeInOut,
         },
       },
     },
@@ -67,7 +68,7 @@ export default function H1({
         filter: "blur(0px)",
         transition: {
           duration: 0.6,
-          ease: [0, 0, 0.2, 1],
+          ease: easeInOut,
         },
       },
     },
@@ -83,9 +84,9 @@ export default function H1({
         scale: 1,
         y: 0,
         transition: {
-          type: "spring",
-          stiffness: 300,
-          damping: 20,
+          type: "spring" as const,
+          stiffness: 400,
+          damping: 15,
         },
       },
     },
