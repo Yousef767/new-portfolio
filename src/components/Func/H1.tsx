@@ -1,36 +1,98 @@
-import { easeInOut, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.03,
+type VariantType = "chaos" | "slide" | "blur" | "pop";
+
+export default function H1({
+  text,
+  variant = "pop",
+}: {
+  text: string;
+  variant?: VariantType;
+}) {
+  const container = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.025,
+      },
     },
-  },
-};
+  };
 
-const letter = {
-  hidden: (custom: number) => ({
-    opacity: 0,
-    x: Math.random() * 200 - 100,
-    y: Math.random() * 200 - 100,
-    rotate: Math.random() * 180 - 90,
-    scale: 0,
-  }),
-  show: {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    rotate: 0,
-    scale: 1,
-    transition: {
-      duration: 0.4,
-      ease: easeInOut,
+  const variantsMap = {
+    chaos: {
+      hidden: () => ({
+        opacity: 0,
+        x: Math.random() * 200 - 100,
+        y: Math.random() * 200 - 100,
+        rotate: Math.random() * 180 - 90,
+        scale: 0,
+      }),
+      show: {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        rotate: 0,
+        scale: 1,
+        transition: {
+          duration: 0.4,
+          ease: [0.42, 0, 0.58, 1],
+        },
+      },
     },
-  },
-};
 
-export default function H1({ text }: { text: string }) {
+    slide: {
+      hidden: {
+        opacity: 0,
+        y: 60,
+      },
+      show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 0.5,
+          ease: [0, 0, 0.2, 1],
+        },
+      },
+    },
+
+    blur: {
+      hidden: {
+        opacity: 0,
+        y: 20,
+        filter: "blur(10px)",
+      },
+      show: {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        transition: {
+          duration: 0.6,
+          ease: [0, 0, 0.2, 1],
+        },
+      },
+    },
+
+    pop: {
+      hidden: {
+        opacity: 0,
+        scale: 0.5,
+        y: 20,
+      },
+      show: {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        transition: {
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+        },
+      },
+    },
+  };
+
+  const letter = variantsMap[variant];
+
   return (
     <motion.h1
       className="h1"
@@ -38,17 +100,30 @@ export default function H1({ text }: { text: string }) {
       initial="hidden"
       whileInView="show"
       viewport={{ once: false, amount: 0.5 }}
-      style={{ display: "flex", flexWrap: "wrap" }}
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        lineHeight: 1.2,
+      }}
     >
-      {text.split("").map((char, i) => (
-        <motion.span
+      {text.split(" ").map((word, i) => (
+        <span
           key={i}
-          variants={letter}
-          custom={i}
-          style={{ display: "inline-block" }}
+          style={{
+            display: "flex",
+            marginRight: "10px",
+          }}
         >
-          {char === " " ? "\u00A0" : char}
-        </motion.span>
+          {word.split("").map((char, j) => (
+            <motion.span
+              key={j}
+              variants={letter}
+              style={{ display: "inline-block" }}
+            >
+              {char}
+            </motion.span>
+          ))}
+        </span>
       ))}
     </motion.h1>
   );
