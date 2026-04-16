@@ -1,11 +1,38 @@
 import { yearsOfExperience } from "../Func/YearsOfExperiance";
-
+import { motion, useScroll, useTransform, easeInOut } from "framer-motion";
+import { useRef } from "react";
+import H1 from "../Func/H1";
+import FramerDiv from "../Func/FramerDiv";
 export default function Expertise() {
+  const sectionRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+  const item = {
+    hidden: (custom: number) => ({
+      opacity: 0,
+      y: 60,
+      scale: 0.8,
+      transition: { duration: 0.4, ease: easeInOut },
+    }),
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.4, ease: easeInOut },
+    },
+  };
+
   return (
-    <section className="box2 expertise" id="expertise">
-      <h1 className="h1">My Expertise</h1>
-      <div className="expertiseBox">
-        <div className="expertiseItem hoverEffect">
+    <section ref={sectionRef} className="box2 expertise" id="expertise">
+      <H1 text="My Expertise" />
+      <FramerDiv className="expertiseBox">
+        <motion.div className="expertiseItem hoverEffect" variants={item}>
           <div className="itemTitle">
             <Dev />
             <h2>Software Development</h2>
@@ -18,8 +45,9 @@ export default function Expertise() {
               technologies and improve my skills.
             </p>
           </div>
-        </div>
-        <div className="expertiseItem hoverEffect">
+        </motion.div>
+
+        <motion.div className="expertiseItem hoverEffect" variants={item}>
           <div className="itemTitle blueFill">
             <Frontend />
             <h2>Frontend Dev React, NextJS</h2>
@@ -30,11 +58,12 @@ export default function Expertise() {
               of experience in front-end development. I enjoy creating modern,
               responsive, and user-friendly applications using HTML, CSS,
               JavaScript, React, and Next.js.
-            </p>{" "}
+            </p>
           </div>
-        </div>
-      </div>
-      <img src="/ex.webp" alt="" className="ex" />
+        </motion.div>
+      </FramerDiv>
+
+      <motion.img src="/ex.webp" alt="" className="ex" style={{ y }} />
     </section>
   );
 }

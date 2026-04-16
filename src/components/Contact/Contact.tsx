@@ -1,6 +1,8 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
+import H1 from "../Func/H1";
+import P from "../Func/P";
 
 export default function Contact() {
   const [toSend, setToSend] = useState({
@@ -57,10 +59,11 @@ export default function Contact() {
 
   return (
     <section className="box2 contact" id="contact">
-      <h1 className="h1">Get In Touch</h1>
-<p className="p">
-  Feel free to reach out through any of the available channels below—whether it's for collaboration, project inquiries, or simply to say hello. I'm always open to meaningful conversations and new opportunities.
-</p>
+      <H1 text="Get In Touch" />
+      <P
+        text="Feel free to reach out through any of the available channels below—whether it's for collaboration, project inquiries, or simply to say hello. I'm always open to meaningful conversations and new opportunities."
+      />
+
       <div className="formbody">
         <form className="form" onSubmit={onSubmit}>
           <div className="input">

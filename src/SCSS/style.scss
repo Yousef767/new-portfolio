@@ -43,6 +43,7 @@ html {
 }
 body {
   background-color: $body;
+  overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 5px;
   }
@@ -670,6 +671,10 @@ nav.active .menu {
   font-family: "Poppins", sans-serif;
   font-size: 4rem;
   text-align: center;
+  span{
+    font-size: inherit;
+    font-family: inherit;
+  }
 }
 .expertise {
   @include flex();
@@ -684,6 +689,8 @@ nav.active .menu {
   opacity: 0.3;
   max-width: 600px;
   width: 100%;
+  will-change: transform;
+  transition: 100ms all ease;
 }
 .expertiseBox {
   width: 100%;
@@ -823,6 +830,10 @@ nav.active .menu {
     font-size: 1.2rem;
     @media (max-width: 500px) {
       font-size: 1rem;
+    }
+    span{
+      font-size: inherit;
+      font-family: inherit;
     }
   }
 }
@@ -1125,7 +1136,7 @@ nav.active .menu {
   position: relative;
   width: 100%;
   padding: 20px 40px;
-  @media (max-width:500px) {
+  @media (max-width: 500px) {
     padding: 20px;
   }
   font-size: 1.2rem;
@@ -1180,62 +1191,63 @@ nav.active .menu {
     font-size: 1.1rem;
   }
 }
-.contact{
+.contact {
   padding-top: 50px;
-  padding-bottom:100px;
+  padding-bottom: 100px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  .p{
+  .p {
     padding-bottom: 50px;
     padding-top: 20px;
     font-size: 1.2rem;
     max-width: 800px;
     width: 100%;
-     @media (max-width: 500px) {
+    @media (max-width: 500px) {
       font-size: 1rem;
     }
   }
 }
 .loader {
-    width: 35px;
-    height: 35px;
-    border: 3px solid #FFF;
-    border-bottom-color: transparent;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    }
+  width: 35px;
+  height: 35px;
+  border: 3px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
 
-    @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    } 
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
-    .submitBtn{
-      @include flex();
-      width: 100%;
-      background-color: $secondary;
-      border: none;
-      outline: none;
-      color: #fff;
-      height: 60px;
-      border-radius: 10px;
-      font-weight: 500;
-      font-size: 1.2rem;
-      font-family: "Poppins", sans-serif;
-    }
+.submitBtn {
+  @include flex();
+  width: 100%;
+  background-color: $secondary;
+  border: none;
+  outline: none;
+  color: #fff;
+  height: 60px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  font-family: "Poppins", sans-serif;
+}
 
-    @media (max-width:900px) {
-      .formbody {
-        flex-direction: column;
-      }
-      .infoCards, .form {
-        width: 100%;
-      }
-    }
+@media (max-width: 900px) {
+  .formbody {
+    flex-direction: column;
+  }
+  .infoCards,
+  .form {
+    width: 100%;
+  }
+}

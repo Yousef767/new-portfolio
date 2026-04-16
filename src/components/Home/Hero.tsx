@@ -19,7 +19,6 @@ export default function Hero() {
           </div>
         </div>
         <p>Front end Developer & Team Leader</p>
-
         <div className="cube-container">
           <div className="cube">
             <div className={`face`}>

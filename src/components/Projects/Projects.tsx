@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { projectsData } from "../Func/ProjectsData";
+import H1 from "../Func/H1";
+import P from "../Func/P";
 
 export default function Projects() {
   const projectsPerPage = 4;
@@ -22,13 +24,8 @@ export default function Projects() {
 
   return (
     <section className="box2 expertise projects" id="projects">
-      <h1 className="h1">My Projects</h1>
-      <p className="p">
-        Developed scalable company portfolios, e-commerce platforms, and admin
-        dashboards using React (SPA & PWA). Collaborated on 90+ projects with
-        40+ clients worldwide, With a growing interest in networking, system
-        troubleshooting, and PC maintenance.
-      </p>
+      <H1 text="My Projects" />
+      <P text="Developed scalable company portfolios, e-commerce platforms, and admin dashboards using React (SPA & PWA). Collaborated on 90+ projects with 40+ clients worldwide, With a growing interest in networking, system troubleshooting, and PC maintenance." />
 
       <div className="projectsList">
         {currentProjects.map((project, index) => (
@@ -38,7 +35,7 @@ export default function Projects() {
             key={index}
             target="_blank"
           >
-            <img src={project.img} alt={project.title} loading="lazy"/>
+            <img src={project.img} alt={project.title} loading="lazy" />
             <div className="itemDetails projectItemDetails">
               <h2>{project.title}</h2>
               <p>{project.description}</p>

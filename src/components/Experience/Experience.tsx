@@ -1,15 +1,38 @@
+import { easeInOut, motion } from "motion/react";
 import { experienceData } from "../Func/ExperienceData";
-
+import FramerDiv from "../Func/FramerDiv";
+import H1 from "../Func/H1";
+const item = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+    scale: 0.95,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: easeInOut,
+    },
+  },
+};
 export default function Experience() {
   return (
     <section className="box2 expertise" id="experience">
-      <h1 className="h1">Professional Experience</h1>
-      <div className="experienceList">
+      <H1 text="My Experience" />
+      <FramerDiv className="experienceList">
         {experienceData.map((exp, index) => (
-          <div className="experienceItem card" key={index}>
-            <h2 className="z2">
-              {exp.company}
-            </h2>
+          <motion.div
+            className="experienceItem card"
+            key={index}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, amount: 0.3 }}
+            variants={item}
+          >
+            <h2 className="z2">{exp.company}</h2>
 
             <div className="companyDetails z2">
               {exp.location && (
@@ -46,9 +69,9 @@ export default function Experience() {
                 <li key={i}>{skill}</li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </FramerDiv>
     </section>
   );
 }
