@@ -1,4 +1,4 @@
-import { motion, easeOut } from "framer-motion";
+import { easeInOut, motion } from "framer-motion";
 
 const container = {
   hidden: {},
@@ -21,7 +21,7 @@ const word = {
     filter: "blur(0px)",
     transition: {
       duration: 0.5,
-      ease: easeOut,
+      ease: easeInOut,
     },
   },
 };
