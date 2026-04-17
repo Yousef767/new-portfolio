@@ -8,6 +8,7 @@ import { GlowEffect } from "./components/Func/GlowEffect";
 import { useEffect } from "react";
 import UpButton from "./components/Func/UpButton";
 import { Toaster } from "react-hot-toast";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   useEffect(() => {
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }

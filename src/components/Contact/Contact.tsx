@@ -114,7 +114,7 @@ export default function Contact() {
 
         <div className="infoCards">
           <div className="infoCard card">
-            <a href="tel:+201006770769" className="infoBox" target="_blank">
+            <a href="tel:+201006770769" className="infoBox" target="_blank" tabIndex={0}>
               <i className="fa fa-phone"></i> +201006770769
             </a>
           </div>
@@ -123,7 +123,7 @@ export default function Contact() {
             <a
               href="mailto:floky4444@gmail.com"
               className="infoBox"
-              target="_blank"
+              target="_blank" tabIndex={0}
             >
               <i className="fa fa-envelope"></i> floky4444@gmail.com
             </a>
@@ -132,7 +132,7 @@ export default function Contact() {
           <div className="infoCard card">
             <a
               href="https://wa.me/+201006770769"
-              target="_blank"
+              target="_blank" tabIndex={0}
               className="infoBox"
             >
               <i className="fa-brands fa-whatsapp"></i> WhatsApp
@@ -142,7 +142,7 @@ export default function Contact() {
           <div className="infoCard card">
             <a
               href="https://github.com/yousef767"
-              target="_blank"
+              target="_blank" tabIndex={0}
               className="infoBox"
             >
               <i className="fa-brands fa-github"></i> GitHub
@@ -152,7 +152,7 @@ export default function Contact() {
           <div className="infoCard card">
             <a
               href="https://www.linkedin.com/in/yousef-ahmed-2862a2252/"
-              target="_blank"
+              target="_blank" tabIndex={0}
               className="infoBox"
             >
               <i className="fa-brands fa-linkedin"></i> LinkedIn
@@ -162,7 +162,7 @@ export default function Contact() {
           <div className="infoCard card">
             <a
               href="https://instagram.com/jo_ahmedd"
-              target="_blank"
+              target="_blank" tabIndex={0}
               className="infoBox"
             >
               <i className="fa-brands fa-instagram"></i> Instagram
@@ -172,7 +172,7 @@ export default function Contact() {
           <div className="infoCard card">
             <a
               href="https://www.facebook.com/yousef.ahmed.206014"
-              target="_blank"
+              target="_blank" tabIndex={0}
               className="infoBox"
             >
               <i className="fa-brands fa-facebook"></i> Facebook
