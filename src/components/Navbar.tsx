@@ -22,7 +22,7 @@ export default function Navbar() {
     };
   }, []);
   return (
-    <nav ref={nav}>
+    <nav ref={nav} role="navigation">
       <div className="box navbar">
         <Link to={"/"} className="logo">
           Yousef<span>.</span>
