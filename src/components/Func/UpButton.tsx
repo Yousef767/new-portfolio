@@ -22,7 +22,7 @@ export default function UpButton() {
   if (!show) return null;
 
   return (
-    <button className="go-up" onClick={handleUp} tabIndex={0}>
+    <button className="go-up" onClick={handleUp} tabIndex={0} aria-label="Go to top">
       <i className="fa-solid fa-chevron-up"></i>
     </button>
   );

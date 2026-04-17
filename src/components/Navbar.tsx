@@ -29,10 +29,12 @@ export default function Navbar() {
           <span>-</span>
         </Link>
         <ul className="links">
-          <Link to={"/"} className="logo logo2">
-            Yousef<span>.</span>
-            <span>-</span>
-          </Link>
+          <li>
+            <Link to={"/"} className="logo logo2">
+              Yousef<span>.</span>
+              <span>-</span>
+            </Link>
+          </li>
           <li>
             <a href="#home" onClick={handleClick}>
               <span>01</span>// Home{" "}
@@ -61,7 +63,7 @@ export default function Navbar() {
         </ul>
         <div className="menu">
           <span className="span"></span>
-          <button onClick={handleClick}>
+          <button onClick={handleClick} aria-label="Toggle Menu">
             <span></span>
             <span></span>
             <span></span>

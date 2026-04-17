@@ -52,6 +52,7 @@ export default function Projects() {
             scrollToProjects();
           }}
           disabled={currentPage === 1}
+          aria-label="Previous Button"
         >
           <i className="fas fa-chevron-left"></i>
         </button>
@@ -64,6 +65,7 @@ export default function Projects() {
               setCurrentPage(i + 1);
               scrollToProjects();
             }}
+            aria-label={`Go to page ${i + 1}`}
           >
             {i + 1}
           </button>
@@ -75,6 +77,7 @@ export default function Projects() {
             scrollToProjects();
           }}
           disabled={currentPage === totalPages}
+          aria-label="Next Button"
         >
           <i className="fas fa-chevron-right"></i>
         </button>

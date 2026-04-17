@@ -107,7 +107,7 @@ export default function Contact() {
             />
           </div>
 
-          <button id="btn" type="submit" className="submitBtn">
+          <button id="btn" type="submit" className="submitBtn" aria-label="Submit Button">
             Send Message
           </button>
         </form>
