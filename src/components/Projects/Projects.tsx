@@ -25,7 +25,7 @@ export default function Projects() {
   return (
     <section className="box2 expertise projects" id="projects">
       <H1 text="My Projects" />
-      <P text="Developed scalable company portfolios, e-commerce platforms, and admin dashboards using React (SPA & PWA). Collaborated on 90+ projects with 40+ clients worldwide, With a growing interest in networking, system troubleshooting, and PC maintenance." />
+      <P text="Developed scalable company portfolios, e-commerce platforms, and admin dashboards using React (SPA & PWA). Collaborated on 150+ projects with 40+ clients worldwide, With a growing interest in networking, system troubleshooting, and PC maintenance." />
 
       <div className="projectsList">
         {currentProjects.map((project, index) => (
