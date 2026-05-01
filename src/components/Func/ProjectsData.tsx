@@ -61,7 +61,7 @@ export const projectsData = [
   },
   {
     title: "Turbo",
-    link: "https://tubroo.netlify.app/",
+    link: "https://turboo.netlify.app/",
     img: "/projects/turbo.png",
     description: "An industrial engineering team platform specializing in academic and practical engineering projects and development.",
   },
