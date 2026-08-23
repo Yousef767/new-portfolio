@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./SCSS/style.scss";
-import "./fa/all.min.css";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar";
 import DevCursor from "./components/DevCursor";
