@@ -4,8 +4,22 @@ interface VantaEffect {
   destroy: () => void;
 }
 
+// interface VantaApi {
+//   CELLS: (options: {
+//     el: string;
+//     mouseControls: boolean;
+//     touchControls: boolean;
+//     gyroControls: boolean;
+//     minHeight: number;
+//     minWidth: number;
+//     scale: number;
+//     scaleMobile: number;
+//     color1: number;
+//     color2: number;
+//   }) => VantaEffect;
+// }
 interface VantaApi {
-  CELLS: (options: {
+  TOPOLOGY: (options: {
     el: string;
     mouseControls: boolean;
     touchControls: boolean;
@@ -14,8 +28,8 @@ interface VantaApi {
     minWidth: number;
     scale: number;
     scaleMobile: number;
-    color1: number;
-    color2: number;
+    color: number;
+    backgroundColor: number;
   }) => VantaEffect;
 }
 
@@ -33,17 +47,29 @@ export default function Vanta() {
       return;
     }
 
-    const effect = window.VANTA.CELLS({
+    // const effect = window.VANTA.CELLS({
+    //   el: "#vanta",
+    //   mouseControls: true,
+    //   touchControls: true,
+    //   gyroControls: false,
+    //   minHeight: 200,
+    //   minWidth: 200,
+    //   scale: 1,
+    //   scaleMobile: 1,
+    //   color1: 0x1a191d,
+    //   color2: 0x3e3e3e,
+    // });
+    const effect = window.VANTA.TOPOLOGY({
       el: "#vanta",
       mouseControls: true,
       touchControls: true,
       gyroControls: false,
-      minHeight: 200,
-      minWidth: 200,
-      scale: 1,
-      scaleMobile: 1,
-      color1: 0x1a191d,
-      color2: 0x3e3e3e,
+      minHeight: 200.0,
+      minWidth: 200.0,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      color: 0xa12ef2,
+      backgroundColor: 0x161616,
     });
 
     return () => effect?.destroy();

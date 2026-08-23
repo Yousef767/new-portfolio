@@ -1,3 +1,5 @@
+import Vanta from "./Vanta";
+
 export default function Hero() {
   return (
     <section className="home" id="home">
