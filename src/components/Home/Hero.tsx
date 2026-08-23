@@ -1,6 +1,7 @@
 export default function Hero() {
   return (
     <section className="home" id="home">
+        {/* <Vanta/> */}
       <div className="homeText">
         <div className="loader-container d-block active" id="loader-container">
           <div className="textRevealContainer">
